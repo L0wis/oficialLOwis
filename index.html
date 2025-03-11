@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de archivos y carpetas</title>
+    <title>Explorador de Archivos</title>
 </head>
 <body>
     <h1>Explorador de Archivos</h1>
@@ -11,7 +11,6 @@
     <ul id="lista-archivos"></ul>
 
     <script>
-        // Configurar tu usuario y repositorio
         const usuario = "L0wis"; // Tu usuario de GitHub
         const repositorio = "oficialLOwis"; // Nombre del repositorio
         let rutaActual = ""; // Ruta dentro del repositorio
@@ -25,25 +24,26 @@
                     let lista = document.getElementById("lista-archivos");
                     let navegacion = document.getElementById("navegacion");
 
-                    // Limpiar contenido anterior
                     lista.innerHTML = "";
                     navegacion.innerHTML = `<button onclick="volver()">⬅ Atrás</button> <strong>Ruta: /${ruta}</strong>`;
 
                     data.forEach(item => {
                         let li = document.createElement("li");
-                        
+
                         if (item.type === "dir") {
-                            // Si es una carpeta, permite navegar dentro de ella
                             li.innerHTML = `<a href="#" onclick="cargarContenido('${item.path}')">📁 ${item.name}</a>`;
                         } else {
-                            // Si es un archivo, permite descargarlo
-                            li.innerHTML = `<a href="${item.download_url}" target="_blank">📄 ${item.name}</a>`;
+                            // Si es HTML o JS, abrirlo con raw.githack.com
+                            if (item.name.endsWith(".html") || item.name.endsWith(".js")) {
+                                li.innerHTML = `<a href="https://raw.githack.com/${usuario}/${repositorio}/main/${item.path}" target="_blank">📄 ${item.name}</a>`;
+                            } else {
+                                li.innerHTML = `<a href="${item.download_url}" target="_blank">📄 ${item.name}</a>`;
+                            }
                         }
 
                         lista.appendChild(li);
                     });
-                    
-                    // Guardar la ruta actual
+
                     rutaActual = ruta;
                 })
                 .catch(error => console.error("Error al obtener archivos:", error));
@@ -52,13 +52,12 @@
         function volver() {
             if (rutaActual !== "") {
                 let partes = rutaActual.split("/");
-                partes.pop(); // Quitar la última carpeta
+                partes.pop();
                 let nuevaRuta = partes.join("/");
                 cargarContenido(nuevaRuta);
             }
         }
 
-        // Cargar la raíz del repositorio al inicio
         cargarContenido("");
     </script>
 </body>
