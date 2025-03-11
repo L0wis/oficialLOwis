@@ -27,13 +27,22 @@
                     lista.innerHTML = "";
                     navegacion.innerHTML = `<button onclick="volver()">⬅ Atrás</button> <strong>Ruta: /${ruta}</strong>`;
 
+                    let tieneIndex = data.some(item => item.name === "index.html");
+
+                    if (tieneIndex) {
+                        // Si la carpeta tiene index.html, abrirlo automáticamente
+                        window.location.href = `https://raw.githack.com/${usuario}/${repositorio}/main/${ruta}/index.html`;
+                        return;
+                    }
+
                     data.forEach(item => {
                         let li = document.createElement("li");
 
                         if (item.type === "dir") {
+                            // Si es carpeta, al hacer clic intenta abrir index.html dentro de ella
                             li.innerHTML = `<a href="#" onclick="cargarContenido('${item.path}')">📁 ${item.name}</a>`;
                         } else {
-                            // Si es HTML o JS, abrirlo con raw.githack.com
+                            // Si es un archivo HTML o JS, abrir con raw.githack.com
                             if (item.name.endsWith(".html") || item.name.endsWith(".js")) {
                                 li.innerHTML = `<a href="https://raw.githack.com/${usuario}/${repositorio}/main/${item.path}" target="_blank">📄 ${item.name}</a>`;
                             } else {
