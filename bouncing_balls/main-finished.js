@@ -124,17 +124,21 @@ canvas.addEventListener('touchstart', (event) => {
 
 // Función para mostrar el contador de símbolos
 function drawCounter() {
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; // Fondo semitransparente para mejorar visibilidad
+  ctx.fillRect(0, 0, width, 80); // Rectángulo detrás del texto
+  
   ctx.fillStyle = 'white';
-  ctx.font = '24px Arial';
+  ctx.font = width < 600 ? '28px Arial' : '24px Arial'; // Mayor tamaño en móviles
   ctx.textAlign = 'center';
-  
+
   // Contador centrado en la parte superior
-  ctx.fillText(`Símbolos: ${balls.length}`, width / 2, 30);
-  
+  ctx.fillText(`Símbolos: ${balls.length}`, width / 2, 35);
+
   // Mensaje de instrucciones
-  ctx.font = '20px Arial';
-  ctx.fillText('Presiona Control + Y (PC) o toca aquí (Móvil)', width / 2, 60);
+  ctx.font = width < 600 ? '24px Arial' : '20px Arial'; // Mayor tamaño en móviles
+  ctx.fillText('Presiona Control + Y (o toca la pantalla en móvil) para agregar símbolos', width / 2, 65);
 }
+
 
 // Bucle de animación
 function loop() {
