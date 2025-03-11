@@ -137,7 +137,7 @@ function drawCounter() {
   // Mensaje de instrucciones con salto de línea
   ctx.font = width < 600 ? '24px Arial' : '20px Arial'; // Mayor tamaño en móviles
   ctx.fillText('Presiona Control + Y', width / 2, 65);
-  ctx.fillText('(o toca la pantalla en móvil) para agregar símbolos', width / 2, 90);
+  ctx.fillText('(o toca Simbolos) para la Magia', width / 2, 90);
 }
 
 // Bucle de animación
