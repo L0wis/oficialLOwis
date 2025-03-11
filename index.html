@@ -1,17 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lista de archivos</title>
 </head>
 <body>
-    <div id="contenido"></div>
+    <h1>Hola!</h1>
+    <ul id="lista-archivos"></ul>
+
     <script>
-        fetch("listar.php")
-            .then(response => response.text())
-            .then(data => document.getElementById("contenido").innerHTML = data)
-            .catch(error => console.error("Error:", error));
+        // Reemplaza con tu usuario y repositorio
+        const usuario = "L0wis";
+        const repositorio = "oficialLOwis";
+
+        fetch(`https://api.github.com/repos/${usuario}/${repositorio}/contents/`)
+            .then(response => response.json())
+            .then(data => {
+                let lista = document.getElementById("lista-archivos");
+                data.forEach(file => {
+                    let li = document.createElement("li");
+                    li.innerHTML = `<a href="${file.download_url}" target="_blank">${file.name}</a>`;
+                    lista.appendChild(li);
+                });
+            })
+            .catch(error => console.error("Error al obtener archivos:", error));
     </script>
 </body>
 </html>
