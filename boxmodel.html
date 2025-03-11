@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* Estilos para el cuadro principal */
+div {
+  background-color: lightgrey;
+  width: 300px;
+  border: 15px solid green;
+  padding: 50px;
+  margin: 20px;
+  position: relative;
+}
+
+/* Estilos para el cuadro interno */
+.inner-box {
+  background-color: #f0f0f0;
+  width: 100%;
+  border: 10px solid blue;
+  padding: 20px;
+  margin: 20px 0;
+}
+</style>
+</head>
+<body>
+
+<h2>Demostracion del BOX-MODEL</h2>
+
+<p>The CSS box model is essentially a box that wraps around every HTML element. It consists of: borders, padding, margins, and the actual content.</p>
+
+<!-- Cuadro principal -->
+<div>
+  <!-- Cuadro interno -->
+  <div class="inner-box">
+    This text is the content of the inner box. We have added a 20px padding, 10px blue border, and the text remains as it is inside this box.
+  </div>
+  <div class="inner-box">
+  <!-- Texto del cuadro principal -->
+  Este texto es el contenido de la caja. Hemos añadido un relleno de 50px, un margen de 20px y un borde verde de 15px. 
+  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+</div>
+
+</body>
+</html>

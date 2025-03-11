@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botones</title>
+    
+    <!-- Incluir jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Crear botón en la cabecera
+            let headerButton = $("<button>Botón en Head</button>");
+            headerButton.click(function() {
+                alert("¡Este botón fue creado en el head con jQuery!");
+            });
+            $("body").append(headerButton);
+
+            // Manejar el botón onclick con jQuery
+            $("#btnOnClick").click(function() {
+                console.log("Botón con onclick presionado");
+            });
+
+            // Función de suma con jQuery
+            $("#btnSumar").click(function() {
+                let num1 = parseInt($("#num1").val()) || 0;
+                let num2 = parseInt($("#num2").val()) || 0;
+                $("#resultado").text("Resultado: " + (num1 + num2));
+            });
+        });
+    </script>
+</head>
+<body>
+    <p>hola</p>
+
+    <!-- Botón con onclick usando jQuery -->
+    <button id="btnOnClick">OnClick</button>
+
+    <!-- Inputs para la suma -->
+    <input type="number" id="num1" placeholder="Número 1">
+    <input type="number" id="num2" placeholder="Número 2">
+    <button id="btnSumar">Sumar</button>
+    <p id="resultado">Resultado: </p>
+
+</body>
+</html>

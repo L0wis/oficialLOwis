@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Hacer Click</title>
+    <style>
+        /* Estilos para el contenedor */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+
+        /* Botón que se moverá */
+        #moveButton {
+            padding: 15px 30px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            transition: all 0.2s ease; /* Movimiento suave */
+        }
+
+        #moveButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h2>¡Intenta hacer clic en el botón!</h2>
+
+<button id="moveButton">¡No me toques!</button>
+
+<script>
+    const button = document.getElementById('moveButton');
+
+    // Función para mover el botón cerca del cursor
+    function moveButton(event) {
+        const buttonRect = button.getBoundingClientRect();
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+
+        // Calculamos la distancia entre el cursor y el botón
+        const distanceX = mouseX - (buttonRect.left + buttonRect.width / 2);
+        const distanceY = mouseY - (buttonRect.top + buttonRect.height / 2);
+
+        // Si el cursor se acerca demasiado, mueve el botón
+        if (Math.abs(distanceX) < 150 && Math.abs(distanceY) < 150) {
+            const moveX = mouseX + (Math.random() * 100 - 50); // Movimiento aleatorio
+            const moveY = mouseY + (Math.random() * 100 - 50); // Movimiento aleatorio
+            button.style.left = `${moveX}px`;
+            button.style.top = `${moveY}px`;
+        }
+    }
+
+    // Escuchar el movimiento del ratón para mover el botón
+    document.addEventListener('mousemove', moveButton);
+</script>
+
+</body>
+</html>
