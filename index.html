@@ -3,28 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de archivos</title>
+    <title>Lista de archivos y carpetas</title>
 </head>
 <body>
-    <h1>Hola!</h1>
+    <h1>Explorador de Archivos</h1>
+    <div id="navegacion"></div>
     <ul id="lista-archivos"></ul>
 
     <script>
-        // Reemplaza con tu usuario y repositorio
-        const usuario = "L0wis";
-        const repositorio = "oficialLOwis";
+        // Configurar tu usuario y repositorio
+        const usuario = "L0wis"; // Tu usuario de GitHub
+        const repositorio = "oficialLOwis"; // Nombre del repositorio
+        let rutaActual = ""; // Ruta dentro del repositorio
 
-        fetch(`https://api.github.com/repos/${usuario}/${repositorio}/contents/`)
-            .then(response => response.json())
-            .then(data => {
-                let lista = document.getElementById("lista-archivos");
-                data.forEach(file => {
-                    let li = document.createElement("li");
-                    li.innerHTML = `<a href="${file.download_url}" target="_blank">${file.name}</a>`;
-                    lista.appendChild(li);
-                });
-            })
-            .catch(error => console.error("Error al obtener archivos:", error));
+        function cargarContenido(ruta) {
+            let url = `https://api.github.com/repos/${usuario}/${repositorio}/contents/${ruta}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let lista = document.getElementById("lista-archivos");
+                    let navegacion = document.getElementById("navegacion");
+
+                    // Limpiar contenido anterior
+                    lista.innerHTML = "";
+                    navegacion.innerHTML = `<button onclick="volver()">⬅ Atrás</button> <strong>Ruta: /${ruta}</strong>`;
+
+                    data.forEach(item => {
+                        let li = document.createElement("li");
+                        
+                        if (item.type === "dir") {
+                            // Si es una carpeta, permite navegar dentro de ella
+                            li.innerHTML = `<a href="#" onclick="cargarContenido('${item.path}')">📁 ${item.name}</a>`;
+                        } else {
+                            // Si es un archivo, permite descargarlo
+                            li.innerHTML = `<a href="${item.download_url}" target="_blank">📄 ${item.name}</a>`;
+                        }
+
+                        lista.appendChild(li);
+                    });
+                    
+                    // Guardar la ruta actual
+                    rutaActual = ruta;
+                })
+                .catch(error => console.error("Error al obtener archivos:", error));
+        }
+
+        function volver() {
+            if (rutaActual !== "") {
+                let partes = rutaActual.split("/");
+                partes.pop(); // Quitar la última carpeta
+                let nuevaRuta = partes.join("/");
+                cargarContenido(nuevaRuta);
+            }
+        }
+
+        // Cargar la raíz del repositorio al inicio
+        cargarContenido("");
     </script>
 </body>
 </html>
